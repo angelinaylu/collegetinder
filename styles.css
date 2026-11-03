@@ -432,7 +432,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .swipe-btn.like:disabled {
   color: #d4a19c;                    /* washed-out red */
-  background: #ececec;
+  background: #d5d5d5;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   pointer-events: none;              /* not clickable at all */
 }
