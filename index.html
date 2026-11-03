@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ ICON LIBRARY (hidden; used via <use href="#i-...">) ============ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+    <symbol id="i-essentials" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r="3" fill="#fff" stroke="none"/><path d="M7.5 18c1-2.3 2.6-3.3 4.5-3.3s3.5 1 4.5 3.3z" fill="#fff" stroke="none"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7.5 12.5l2 2M10.5 9.5l2 2M13.5 6.5l2 2"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></symbol>
+    <symbol id="i-pronoun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M7 17.5c1.2-2 3-3 5-3s3.8 1 5 3"/></symbol>
+    <symbol id="i-house" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M3 18v-5c0-4 2-7 6-8l.6 1.6C7.3 7.6 6.6 9 6.6 11H10v7zm10 0v-5c0-4 2-7 6-8l.6 1.6c-2.3 1-3 2.4-3 4.4H20v7z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M2 7a2.5 2.5 0 012.5-2.5H16l6 7.5-6 7.5H4.5A2.5 2.5 0 012 17z"/></symbol>
+    <symbol id="i-wine" viewBox="0 0 24 24"><path d="M8 3h8l-.5 6a3.5 3.5 0 01-7 0z"/><path d="M8.3 7h7.4M12 12.5V20M8.5 20.5h7"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="6" cy="10" r="1.8"/><circle cx="9.5" cy="5.5" r="1.8"/><circle cx="14.5" cy="5.5" r="1.8"/><circle cx="18" cy="10" r="1.8"/><path d="M12 11.5c-2.5 0-5 3-5 5.8 0 1.8 1.5 2.8 3 2.3 1.4-.4 2.6-.4 4 0 1.5.5 3-.5 3-2.3 0-2.8-2.5-5.8-5-5.8z"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M8 8l8 8M4.5 7.5l3-3M16.5 19.5l3-3M3 11l8-8M13 21l8-8"/></symbol>
+    <symbol id="i-smoke" viewBox="0 0 24 24"><path d="M3 15.5l12.5-6.3 1.5 3L4.5 18.5z"/><path d="M12 11l1.5 3M17 3.5c1 1 1 2.2 0 3.2M20 5c1 1 1 2.2 0 3.2"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19 15.5A8 8 0 018.5 5a8 8 0 1010.5 10.5z"/><path d="M17 3.5v3M15.5 5h3"/></symbol>
+    <symbol id="i-love" viewBox="0 0 24 24"><path d="M4 4h16v12H10l-6 4.5z"/><path d="M12 13.2l-2.4-2.3a1.6 1.6 0 012.4-2.1 1.6 1.6 0 012.4 2.1z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 4h16v12H10l-6 4.5z"/><path d="M8 8.5h8M8 11.5h5"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="11" r=".6" fill="currentColor"/><circle cx="15" cy="11" r=".6" fill="currentColor"/><path d="M9.5 15c1.4 1 3.6 1 5 0"/></symbol>
+    <symbol id="i-shapes" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><path d="M2.5 10.5L6.5 3l4 7.5z"/><path d="M17 11l-3.2-3a2.1 2.1 0 013.2-2.7 2.1 2.1 0 013.2 2.7z"/><circle cx="6.5" cy="17" r="3.8"/><rect x="13" y="13.2" width="7.6" height="7.6" rx="1.8"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M22 2.5L2.5 10.2l7.3 2.6 2.6 8.7z"/><path fill="currentColor" stroke="none" opacity=".7" d="M9.8 12.8L22 2.5 12.4 21.5z"/></symbol>
+    <symbol id="i-verified" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 1.5l2.6 2 3.3-.3 1 3.1 2.8 1.8-1 3.1 1 3.1-2.8 1.8-1 3.1-3.3-.3-2.6 2-2.6-2-3.3.3-1-3.1-2.8-1.8 1-3.1-1-3.1 2.8-1.8 1-3.1 3.3.3z"/><path d="M8 12.2l2.7 2.7L16 9.5" stroke="#555" stroke-width="2.2"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></g></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v14M6.5 12.5L12 18l5.5-5.5" stroke-width="3.2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke-width="3.6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 21L3.6 12.6a5.2 5.2 0 017.4-7.4l1 1 1-1a5.2 5.2 0 017.4 7.4z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-2.6 2.5-3.9 5.5-3.9 9s1.3 6.5 3.9 9M12 3c2.6 2.5 3.9 5.5 3.9 9s-1.3 6.5-3.9 9"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M9 5.5l11-2.5v12.5a3 3 0 11-2-2.8V7.4l-7 1.6v8.5a3 3 0 11-2-2.8z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M7 4.5v15l12.5-7.5z"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M8 10v4M12 7.5v9M16 10v4" stroke="#fff" stroke-width="2"/></symbol>
+  </svg>
+
+  <main class="phone">
+
+    <!-- ============ FIXED HEADER ============ -->
+    <header class="profile-header">
+      <h1><span class="name">Angelina</span> <span class="age">18</span></h1>
+      <button class="close-btn" aria-label="Close profile"><svg class="ico"><use href="#i-down"/></svg></button>
+    </header>
+
+    <!-- ============ SCROLLABLE BODY ============ -->
+    <div class="scroll-area">
+
+      <!-- Photo carousel -->
+      <section class="carousel" id="carousel">
+        <div class="progress" id="progress"></div>
+        <div class="slides" id="slides">
+          <!-- To use real photos, replace a slide's contents with:  <img src="images/photo1.jpg" alt=""> -->
+          <img src="src/headshot.jpg" alt="">
+          <img src="src/volunteering.jpg" alt="">
+          <img src="src/working.jpg" alt="">
+          <img src="src/speaking.jpg" alt="">
+          <img src="src/fish.jpg" alt="">
+        </div>
+
+        <button class="tap-zone left" aria-label="Previous photo"></button>
+        <button class="tap-zone right" aria-label="Next photo"></button>
+
+        <svg class="ico photo-verified"><use href="#i-verified"/></svg>
+        <button class="reply on-photo"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Looking for -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-search"/></svg>Looking for</h2>
+        <p class="big-value">Long-term partner (4 years + lifelong donations)</p>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- About me -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-user"/></svg>About me</h2>
+        <p class="about-text">📍Seattle, WA<br>
+                              Aspiring changemaker passionate about bridging the gap between technology and people.<br>
+                              Whether I’m leading a team or learning from one, I bring curiosity, empathy, and a growth
+                              mindset to everything I do.<br>
+                              Excited to continue my journey somewhere I can be challenged and contribute.<br>
+                              Looking to match with a vibrant, diverse community with world-class faculty
+                              and small class sizes.
+                              <br><br>
+                              Top 25 only, sorry ¯\_(ツ)_/¯</p>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Essentials -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-essentials"/></svg>Essentials<svg class="ico more"><use href="#i-more"/></svg></h2>
+        <ul class="rows">
+          <li><svg class="ico"><use href="#i-pronoun"/></svg>She/Her</li>
+          <li><svg class="ico"><use href="#i-pin"/></svg>2,650 miles away</li>
+          <li><svg class="ico"><use href="#i-ruler"/></svg>5 ft 8 in</li>
+          <li><svg class="ico"><use href="#i-cap"/></svg>University of &lt;hopefully yours&gt;</li>
+          <li><svg class="ico"><use href="#i-globe"/></svg>English, Spanish (Intermediate)</li>
+        </ul>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Prompts -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-quote"/></svg>My ideal weekend includes...<svg class="ico more"><use href="#i-more"/></svg></h2>
+        <p class="prompt-answer">Developing my 501(c)(3) nonprofit and conducting international outreach in Ecuador for underpriviledged children</p>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-quote"/></svg>A book that reflects my life...<svg class="ico more"><use href="#i-more"/></svg></h2>
+        <p class="prompt-answer">I Am Malala</p>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+
+      <!-- Lifestyle -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-tag"/></svg>Lifestyle</h2>
+        <ul class="details">
+            <li><span class="d-label">Drinking</span><span class="d-value"><svg class="ico"><use href="#i-wine"/></svg>Never</span></li>
+            <li><span class="d-label">Smoking</span><span class="d-value"><svg class="ico"><use href="#i-smoke"/></svg>Never</span></li>
+            <li><span class="d-label">Workout</span><span class="d-value"><svg class="ico"><use href="#i-dumbbell"/></svg>Often</span></li>
+        </ul>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Basics -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-tag"/></svg>Basics</h2>
+        <ul class="details">
+          <li><span class="d-label">Work Style</span><span class="d-value"><svg class="ico"><use href="#i-love"/></svg>Diligent & detail-oriented</span></li>
+          <li><span class="d-label">Communication Style</span><span class="d-value"><svg class="ico"><use href="#i-chat"/></svg>Concise & effective</span></li>
+          <li><span class="d-label">Education</span><span class="d-value"><svg class="ico"><use href="#i-cap"/></svg>High School + 18 APs + Running Start</span></li>
+        </ul>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Interests -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-shapes"/></svg>Interests</h2>
+        <div class="chips">
+          <span class="chip">🔬 Research</span>
+          <span class="chip">🌍 Altruism</span>
+          <span class="chip">🏆 Competing (Internationally)</span>
+          <span class="chip">💻 Programming</span>
+          <span class="chip">🌱 Volunteering</span>
+          <span class="chip">⚽ Soccer (Varsity Captain)</span>
+        </div>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- My anthem -->
+      <section class="card">
+        <h2 class="card-label"><svg class="ico"><use href="#i-music"/></svg>My anthem</h2>
+        <div class="anthem">
+          <div class="anthem-art">
+            <!-- to use your own cover image: <img src="images/anthem.jpg" alt=""> -->
+            <svg class="ico play"><use href="#i-play"/></svg>
+          </div>
+          <div class="anthem-info">
+            <p class="anthem-title">Clair de Lune</p>
+            <p class="anthem-sub"><svg class="ico"><use href="#i-sound"/></svg><span>Claude Debussy · Suite bergamasque</span></p>
+          </div>
+        </div>
+        <button class="reply"><svg class="ico"><use href="#i-send"/></svg>Reply</button>
+      </section>
+
+      <!-- Share / Block / Report -->
+      <button class="plain-card">Share Angelina</button>
+      <button class="plain-card">Block Angelina</button>
+      <button class="plain-card report">Report Angelina</button>
+    <!-- ============ FLOATING NOPE / LIKE ============ -->
+    <div class="swipe-buttons">
+        <button class="swipe-btn nope" aria-label="Nope"><svg class="ico"><use href="#i-x"/></svg></button>
+        <span class="locked" tabindex="0">
+        <button class="swipe-btn like" aria-label="Like (unavailable)" disabled><svg class="ico"><use href="#i-heart"/></svg></button>
+        <span class="tooltip" role="tooltip">This option is currently waitlisted.</span>
+        </span>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+/* ============ THEME ============ */
+:root {
+  --gap: #e3e1e3;        /* the gray showing between cards */
+  --card: #f1f0f1;       /* card + header background */
+  --white: #ffffff;
+  --chip: #e2e0e3;
+  --text: #1c1b1d;
+  --muted: #69676b;
+  --line: #d9d7da;
+  --blue: #6283d9;       /* Reply icon */
+  --red: #c7352b;        /* heart + Report */
+  --radius: 26px;
+  --photo-bg: #ffffff;   /* fills the empty space around photos; try var(--card) or #000 */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: #111;
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+/* every <svg class="ico"> icon */
+.ico {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============ PHONE FRAME ============ */
+.phone {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--gap);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============ FIXED HEADER ============ */
+.profile-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 20px 18px 22px;
+  background: var(--card);
+  z-index: 10;
+}
+
+.profile-header h1 {
+  font-size: 2.1rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-header .name { font-weight: 700; }
+.profile-header .age  { font-weight: 400; }
+
+.close-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+
+/* ============ SCROLL AREA ============ */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 120px;          /* room for the floating buttons */
+  scrollbar-width: none;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ============ CAROUSEL ============ */
+.carousel {
+  position: relative;
+  aspect-ratio: 1 / 1;            /* square photos */
+  overflow: hidden;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--photo-bg);
+  margin-bottom: 8px;
+}
+
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  height: 100%;
+  background: var(--bg, var(--photo-bg));   /* slides with a real photo get the fill color */
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,0.85);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+/* "contain" shows the whole photo without stretching or cropping; leftover space shows --photo-bg */
+/* every child of .slides is exactly one photo wide, whether it's a .slide div or a bare <img> */
+.slides > * {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+}
+.slides > img {
+  object-fit: contain;
+  background: var(--photo-bg);
+}
+
+.slide { position: relative; overflow: hidden; }
+.slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* white icons need a shadow so they stay visible on a white fill */
+.progress span,
+.photo-more,
+.photo-verified { filter: drop-shadow(0 0 1px rgba(0,0,0,0.6)) drop-shadow(0 1px 3px rgba(0,0,0,0.4)); }
+
+/* small centered dashes at the top */
+.progress {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 3;
+}
+.progress span {
+  width: 18px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.4);
+}
+.progress span.active { background: #fff; }
+
+.photo-more {
+  position: absolute;
+  top: 22px;
+  right: 20px;
+  color: #fff;
+  z-index: 3;
+}
+
+.photo-verified {
+  position: absolute;
+  bottom: 22px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  z-index: 3;
+}
+
+.tap-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 2;
+}
+.tap-zone.left  { left: 0; }
+.tap-zone.right { right: 0; }
+
+/* ============ CARDS ============ */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 26px 24px 22px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.card-label .ico:first-child { color: #4a484c; }
+.card-label .more { margin-left: auto; color: #4a484c; }
+
+/* Looking for */
+.big-value { font-size: 1.6rem; font-weight: 700; }
+
+/* About me */
+.about-text { font-size: 1.15rem; line-height: 1.45; }
+
+/* Prompt */
+.prompt-answer {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* Essentials: icon + text rows */
+.rows { list-style: none; }
+.rows li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.rows li:first-child { padding-top: 0; }
+.rows li:last-child  { border-bottom: none; }
+
+/* Lifestyle / Basics: gray label, then icon + value */
+.details { list-style: none; }
+.details li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.details li:first-child { padding-top: 0; }
+.details li:last-child  { border-bottom: none; }
+.d-label { font-size: 1.05rem; font-weight: 600; color: var(--muted); }
+.d-value {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 1.25rem;
+}
+.d-value .ico { margin-left: 2px; }
+
+/* Interests */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  background: var(--chip);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 1.1rem;
+}
+
+/* My anthem */
+.anthem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.anthem-art {
+  position: relative;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  overflow: hidden;
+  /* placeholder art: a moon over a night sky. Swap in an <img> to use your own */
+  background:
+    radial-gradient(circle at 75% 25%, #f4efd8 0 13%, transparent 14%),
+    linear-gradient(160deg, #23305a, #0f1530);
+}
+.anthem-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.anthem-art .play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+}
+
+.anthem-info { min-width: 0; }
+.anthem-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.anthem-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+.anthem-sub span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.anthem-sub .ico { width: 20px; height: 20px; color: #1db954; }
+
+/* Reply pill */
+.reply {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  padding: 10px 20px 10px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.reply .ico { color: var(--blue); width: 24px; height: 24px; }
+
+.reply.on-photo {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  margin: 0;
+  background: var(--card);
+  border: none;
+  z-index: 3;
+}
+
+/* Share / Block / Report */
+.plain-card {
+  display: block;
+  width: 100%;
+  background: var(--white);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+.plain-card.report { color: var(--red); }
+
+/* ============ FLOATING NOPE / LIKE ============ */
+.swipe-buttons {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  display: flex;
+  justify-content: center;
+  gap: 22%;
+  pointer-events: none;            /* only the buttons themselves are clickable */
+  z-index: 20;
+}
+
+.swipe-btn {
+  pointer-events: auto;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s ease;
+}
+.swipe-btn:active { transform: scale(0.9); }
+.swipe-btn .ico { width: 30px; height: 30px; }
+.swipe-btn.nope { color: #111; }
+.swipe-btn.like { color: var(--red); }
+
+/* ============ HOVER NOTE ON A CARD (e.g. Lifestyle) ============ */
+.has-note { outline: none; }
+
+.card-label .note {
+  margin-left: auto;
+  min-width: 0;
+  max-width: 190px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: #1c1b1d;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+/* show on hover (desktop) or tap (phones) */
+.has-note:hover .note,
+.has-note:focus-within .note {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ THE "REJECTED" HEART ============ */
+.locked {
+  position: relative;
+  pointer-events: auto;
+  cursor: not-allowed;
+  outline: none;
+}
+
+.swipe-btn.like:disabled {
+  color: #d4a19c;                    /* washed-out red */
+  background: #ececec;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  pointer-events: none;              /* not clickable at all */
+}
+
+.locked .tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  width: 210px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #1c1b1d;
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+/* little arrow under the bubble */
+.locked .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #1c1b1d;
+}
+
+/* show on hover (desktop) or tap/focus (phones) */
+.locked:hover .tooltip,
+.locked:focus .tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
